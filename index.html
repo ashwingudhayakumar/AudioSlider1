@@ -27,81 +27,138 @@
     <title>Document</title>
 </head>
 
-<body onclick="myFunction(event)">
+<body onclick="onClickOnAnyInput(event)">
 
 </body>
 
 </html>
 
 <script>
-    function myFunction(event){
+    function onClickOnAnyInput(event){
         newAudioSlider.currentEventTargetElement=event.target;
-        if(newAudioSlider.startTime){
+        if(newAudioSlider.startTimeSeconds){
         
             var idCheck=newAudioSlider.currentEventTargetElement.id;
 
-            if(idCheck==="starttime"){
+            // if(idCheck==="starttime"){
 
-                var endTimeArray=newAudioSlider.endTime.value.split(":");
+            //     var endTimeArray=newAudioSlider.endTime.value.split(":");
                
-                var startTimeArray=newAudioSlider.startTime.value.split(":");
+            //     var startTimeArray=newAudioSlider.startTime.value.split(":");
 
-                newAudioSlider.extractedCurrentStartValue=newAudioSlider.startTime.value;
+            //     newAudioSlider.extractedCurrentStartValue=newAudioSlider.startTime.value;
 
-                newAudioSlider.extractedCurrentEndValue=newAudioSlider.endTime.value;
+            //     newAudioSlider.extractedCurrentEndValue=newAudioSlider.endTime.value;
 
-                var diff=((parseInt(endTimeArray[0])*3600)+(parseInt(endTimeArray[1])*60)+(parseInt(endTimeArray[2])))-((parseInt(startTimeArray[0])*3600)+(parseInt(startTimeArray[1])*60)+(parseInt(startTimeArray[2])));
+            //     var diff=((parseInt(endTimeArray[0])*3600)+(parseInt(endTimeArray[1])*60)+(parseInt(endTimeArray[2])))-((parseInt(startTimeArray[0])*3600)+(parseInt(startTimeArray[1])*60)+(parseInt(startTimeArray[2])));
 
-                if(diff>1){
+            //     if(diff>1){
 
-                    var expectedDiff=diff-1;
+            //         var expectedDiff=diff-1;
 
-                    var valueToAddedIntoHour=parseInt(expectedDiff/3600);
+            //         var valueToAddedIntoHour=parseInt(expectedDiff/3600);
 
-                    var valueToAddedIntoMinute=parseInt(expectedDiff/60);
+            //         var valueToAddedIntoMinute=parseInt(expectedDiff/60);
 
-                    var valueToAddedIntoSeconds=parseInt(expectedDiff%60);
+            //         var valueToAddedIntoSeconds=parseInt(expectedDiff%60);
 
-                    newAudioSlider.startValueThatIsExpectedUpto=`${(parseInt(startTimeArray[0])+valueToAddedIntoHour).toString().padStart(2,'0')}:${(parseInt(startTimeArray[1])+valueToAddedIntoMinute).toString().padStart(2,'0')}:${(parseInt(startTimeArray[2])+valueToAddedIntoSeconds).toString().padStart(2,'0')}`;
+            //         newAudioSlider.startValueThatIsExpectedUpto=`${(parseInt(startTimeArray[0])+valueToAddedIntoHour).toString().padStart(2,'0')}:${(parseInt(startTimeArray[1])+valueToAddedIntoMinute).toString().padStart(2,'0')}:${(parseInt(startTimeArray[2])+valueToAddedIntoSeconds).toString().padStart(2,'0')}`;
 
-                    console.log(newAudioSlider.startValueThatIsExpectedUpto,newAudioSlider.extractedCurrentStartValue,newAudioSlider.extractedCurrentEndValue);
+            //         console.log(newAudioSlider.startValueThatIsExpectedUpto,newAudioSlider.extractedCurrentStartValue,newAudioSlider.extractedCurrentEndValue);
                     
-                }
+            //     }
+
+
+
+
+            if(idCheck==="starttimeseconds"|| idCheck==="starttimeminutes"){
+
+            newAudioSlider.extractedCurrentStartValueSeconds=newAudioSlider.startTimeSeconds.value;
+
+            newAudioSlider.extractedCurrentStartValueMinutes=newAudioSlider.startTimeMinutes.value;
+
+            newAudioSlider.extractedCurrentEndValueSeconds=newAudioSlider.endTimeSeconds.value;
+
+            newAudioSlider.extractedCurrentEndValueMinutes=newAudioSlider.endTimeMinutes.value;
+
+            var diff=(parseInt(newAudioSlider.extractedCurrentEndValueMinutes)*60+parseInt(newAudioSlider.extractedCurrentEndValueSeconds))-(parseInt(newAudioSlider.extractedCurrentStartValueMinutes*60)+parseInt(newAudioSlider.extractedCurrentStartValueSeconds));
+
+            if(diff>1){
+
+                var expectedDiff=diff-1;
+
+                var valueToAddedIntoMinutes=parseInt(expectedDiff/60);
+
+                var valueToAddedIntoSeconds=parseInt(expectedDiff%60);
+
+
+                newAudioSlider.startValueThatIsExpectedUptoSeconds=parseInt(newAudioSlider.extractedCurrentStartValueSeconds)+valueToAddedIntoSeconds;
+
+                newAudioSlider.startValueThatIsExpectedUptoMinutes=parseInt(newAudioSlider.extractedCurrentStartValueMinutes)+valueToAddedIntoMinutes;
 
                 
+            }
+   
 
             }
 
-            else if(idCheck==="endtime"){
 
-                var endTimeArray=newAudioSlider.endTime.value.split(":");
+            // else if(idCheck==="endtime"){
+
+            //     var endTimeArray=newAudioSlider.endTime.value.split(":");
                
-                var startTimeArray=newAudioSlider.startTime.value.split(":");
+            //     var startTimeArray=newAudioSlider.startTime.value.split(":");
 
-                newAudioSlider.extractedCurrentStartValue=newAudioSlider.startTime.value;
+            //     newAudioSlider.extractedCurrentStartValue=newAudioSlider.startTime.value;
 
-                newAudioSlider.extractedCurrentEndValue=newAudioSlider.endTime.value;
+            //     newAudioSlider.extractedCurrentEndValue=newAudioSlider.endTime.value;
 
-                var diff=((parseInt(endTimeArray[0])*3600)+(parseInt(endTimeArray[1])*60)+(parseInt(endTimeArray[2])))-((parseInt(startTimeArray[0])*3600)+(parseInt(startTimeArray[1])*60)+(parseInt(startTimeArray[2])));
+            //     var diff=((parseInt(endTimeArray[0])*3600)+(parseInt(endTimeArray[1])*60)+(parseInt(endTimeArray[2])))-((parseInt(startTimeArray[0])*3600)+(parseInt(startTimeArray[1])*60)+(parseInt(startTimeArray[2])));
 
-                if(diff>1){
+            //     if(diff>1){
 
-                    var expectedDiff=diff-1;
+            //         var expectedDiff=diff-1;
 
-                    var totalDuration=parseInt(startTimeArray[0])*3600+parseInt(startTimeArray[1]*60)+parseInt(startTimeArray[2]%60);
+            //         var totalDuration=parseInt(startTimeArray[0])*3600+parseInt(startTimeArray[1]*60)+parseInt(startTimeArray[2]%60);
 
-                    var expectedDuration=totalDuration+1;
+            //         var expectedDuration=totalDuration+1;
 
-                    newAudioSlider.endValueThatIsExpectedUpto=`${parseInt(expectedDuration/3600).toString().padStart(2,'0')}:${parseInt(expectedDuration/60).toString().padStart(2,'0')}:${parseInt(expectedDuration%60).toString().padStart(2,'0')}`;
+            //         newAudioSlider.endValueThatIsExpectedUpto=`${parseInt(expectedDuration/3600).toString().padStart(2,'0')}:${parseInt(expectedDuration/60).toString().padStart(2,'0')}:${parseInt(expectedDuration%60).toString().padStart(2,'0')}`;
 
-                    console.log(newAudioSlider.endValueThatIsExpectedUpto,newAudioSlider.extractedCurrentStartValue,newAudioSlider.extractedCurrentEndValue);
+            //         console.log(newAudioSlider.endValueThatIsExpectedUpto,newAudioSlider.extractedCurrentStartValue,newAudioSlider.extractedCurrentEndValue);
 
 
-                }
+            //     }
+
+            // }
+
+
+
+            else if(idCheck==="endtimeseconds" || idCheck==="endtimeminutes"){
+
+                newAudioSlider.extractedCurrentStartValueSeconds=newAudioSlider.startTimeSeconds.value;
+
+                newAudioSlider.extractedCurrentStartValueMinutes=newAudioSlider.startTimeMinutes.value;
+
+                newAudioSlider.extractedCurrentEndValueSeconds=newAudioSlider.endTimeSeconds.value;
+
+                newAudioSlider.extractedCurrentEndValueMinutes=newAudioSlider.endTimeMinutes.value;
+
+                var diff=(newAudioSlider.extractedCurrentEndValueMinutes*60+newAudioSlider.extractedCurrentEndValueSeconds)-(newAudioSlider.extractedCurrentStartValueMinutes*60+newAudioSlider.extractedCurrentStartValueSeconds);
+
+            if(diff>1){
+
+                var totalDuration=parseInt(newAudioSlider.extractedCurrentStartValueMinutes*60)+parseInt(newAudioSlider.extractedCurrentStartValueSeconds);
+
+                var expectedDurationForEnd=totalDuration+1;
+
+                newAudioSlider.endValueThatIsExpectedUptoSeconds=parseInt(expectedDurationForEnd%60);
+
+                newAudioSlider.endValueThatIsExpectedUptoMinutes=parseInt(expectedDurationForEnd/60);
 
             }
-            
-            
+
+            }
 
 
             
@@ -117,12 +174,36 @@
             this.playPauseCount;
             
             
-            this.startTime;
-            this.endTime;
-            this.extractedCurrentStartValue;
-            this.extractedCurrentEndValue;
-            this.startValueThatIsExpectedUpto;
-            this.endValueThatIsExpectedUpto;
+            // this.startTime;
+            
+            this.startTimeSeconds;
+            this.startTimeMinutes;
+
+            // this.endTime;
+
+            this.endTimeSeconds;
+            this.endTimeMinutes;
+
+            //this.extractedCurrentStartValue;
+
+            this.extractedCurrentStartValueSeconds;
+            this.extractedCurrentStartValueMinutes;
+
+            //this.extractedCurrentEndValue;
+
+            this.extractedCurrentEndValueSeconds;
+            this.extractedCurrentEndValueMinutes;
+
+            //this.startValueThatIsExpectedUpto;
+            this.startValueThatIsExpectedUptoSeconds;
+            this.startValueThatIsExpectedUptoMinutes;
+
+            //this.endValueThatIsExpectedUpto;
+            this.endValueThatIsExpectedUptoSeconds;
+            this.endValueThatIsExpectedUptoMinutes;
+            
+            
+            
             this.currentEventTargetElement;
 
         }
@@ -246,6 +327,10 @@
         if (document.getElementById('originalAudio')) {
             document.getElementById('originalAudio').remove();
             document.getElementById('submit').remove();
+            document.getElementById('starttimeminutes').remove();
+            document.getElementById('starttimeseconds').remove();
+            document.getElementById('endtimeminutes').remove();
+            document.getElementById('endtimeseconds').remove();
             if(document.getElementById("trimmedAudiolabel")){
                 document.getElementById('trimmedAudiolabel').remove();
                 document.getElementById('trimmedAudio').remove();
@@ -268,75 +353,247 @@
         newAudioSlider.originalAudio.onloadedmetadata = function () {
 
 
-            newAudioSlider.startTime=document.createElement('input');
-            newAudioSlider.endTime=document.createElement('input');
+            // newAudioSlider.startTime=document.createElement('input');
+            // newAudioSlider.endTime=document.createElement('input');
 
-            newAudioSlider.startTime.setAttribute("type","time");
-            newAudioSlider.endTime.setAttribute("type","time");
+            newAudioSlider.startTimeSeconds=document.createElement('input');
+            newAudioSlider.startTimeMinutes=document.createElement('input');
+            newAudioSlider.endTimeSeconds=document.createElement('input');
+            newAudioSlider.endTimeMinutes=document.createElement('input');
 
-            newAudioSlider.startTime.setAttribute("step","1");
-            newAudioSlider.endTime.setAttribute("step","1");
+            // newAudioSlider.startTime.setAttribute("type","time");
+            // newAudioSlider.endTime.setAttribute("type","time");
 
-            newAudioSlider.startTime.setAttribute("id","starttime");
-            newAudioSlider.endTime.setAttribute("id","endtime");
+            newAudioSlider.startTimeSeconds.setAttribute("type","number");
+            newAudioSlider.startTimeMinutes.setAttribute("type","number");
+            newAudioSlider.endTimeMinutes.setAttribute("type","number");
+            newAudioSlider.endTimeSeconds.setAttribute("type","number");
 
-            newAudioSlider.startTime.value="00:00:00";
-            newAudioSlider.endTime.value=`${Math.floor(newAudioSlider.originalAudio.duration/3600).toString().padStart(2, '0')}:${Math.floor(newAudioSlider.originalAudio.duration/60).toString().padStart(2, '0')}:${Math.floor(newAudioSlider.originalAudio.duration%60).toString().padStart(2, '0')}`;
+            // newAudioSlider.startTime.setAttribute("step","1");
+            // newAudioSlider.endTime.setAttribute("step","1");
+
+            newAudioSlider.startTimeSeconds.setAttribute("id","starttimeseconds");
+            newAudioSlider.startTimeMinutes.setAttribute("id","starttimeminutes");
+            newAudioSlider.endTimeSeconds.setAttribute("id","endtimeseconds");
+            newAudioSlider.endTimeMinutes.setAttribute("id","endtimeminutes");
+
+            // newAudioSlider.startTime.setAttribute('min',"00:00:00");
+            // newAudioSlider.startTime.setAttribute('max',"23:59:58");
+            // newAudioSlider.endTime.setAttribute('min',"00:00:01");
+            // newAudioSlider.endTime.setAttribute('max',"23:59:59");
+
+            // newAudioSlider.startTime.value="00:00:00";
+            // newAudioSlider.endTime.value=`${Math.floor(newAudioSlider.originalAudio.duration/3600).toString().padStart(2, '0')}:${Math.floor(newAudioSlider.originalAudio.duration/60).toString().padStart(2, '0')}:${Math.floor(newAudioSlider.originalAudio.duration%60).toString().padStart(2, '0')}`;
+
+            newAudioSlider.startTimeSeconds.value="0";
+            newAudioSlider.startTimeMinutes.value="0";
+            newAudioSlider.endTimeSeconds.value=`${Math.floor(newAudioSlider.originalAudio.duration%60)}`;
+            newAudioSlider.endTimeMinutes.value=`${Math.floor(newAudioSlider.originalAudio.duration/60)}`;
 
 
-            document.body.append(newAudioSlider.startTime);
-            document.body.append(newAudioSlider.endTime);
+
+            // document.body.append(newAudioSlider.startTime);
+            // document.body.append(newAudioSlider.endTime);
+
+            document.body.append(newAudioSlider.startTimeMinutes);
+            document.body.append(newAudioSlider.startTimeSeconds);
+            document.body.append(newAudioSlider.endTimeMinutes);
+            document.body.append(newAudioSlider.endTimeSeconds);
 
             
 
 
         
-            newAudioSlider.startTime.addEventListener("change",()=>{
+            // newAudioSlider.startTime.addEventListener("change",()=>{
                
-                var startTimeArray=newAudioSlider.startTime.value.split(":");
-                var startTimeExpectedUpto=newAudioSlider.startValueThatIsExpectedUpto.split(":");
+            //     var startTimeArray=newAudioSlider.startTime.value.split(":");
+            //     var startTimeExpectedUpto=newAudioSlider.startValueThatIsExpectedUpto.split(":");
 
-                var startTimeArrayWholeValue=(parseInt(startTimeArray[0])*3600)+(parseInt(startTimeArray[1])*60)+(parseInt(startTimeArray[2]));
-                var startTimeExpectedWholeValue=(parseInt(startTimeExpectedUpto[0])*3600)+(parseInt(startTimeExpectedUpto[1])*60)+(parseInt(startTimeExpectedUpto[2]));
-
-
-                if(startTimeArrayWholeValue<=startTimeExpectedWholeValue){
-                    newAudioSlider.extractedCurrentStartValue=newAudioSlider.startTime.value;
-                    newAudioSlider.minRangeOfAudioSlider.style.left=(startTimeArrayWholeValue/(newAudioSlider.originalAudio.duration))*500+'px';
-                    newAudioSlider.minRangeAudioLabel.style.left=(startTimeArrayWholeValue/(newAudioSlider.originalAudio.duration))*500+'px';
-                    var percentage = (startTimeArrayWholeValue/(newAudioSlider.originalAudio.duration));
-                    var currAudioDuration = Math.ceil(percentage * (newAudioSlider.originalAudio.duration));
-                    newAudioSlider.minRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
-                }
-                else{
-                    newAudioSlider.startTime.value=newAudioSlider.extractedCurrentStartValue;
-                }
-
-                })
+            //     var startTimeArrayWholeValue=(parseInt(startTimeArray[0])*3600)+(parseInt(startTimeArray[1])*60)+(parseInt(startTimeArray[2]));
+            //     var startTimeExpectedWholeValue=(parseInt(startTimeExpectedUpto[0])*3600)+(parseInt(startTimeExpectedUpto[1])*60)+(parseInt(startTimeExpectedUpto[2]));
 
 
-                newAudioSlider.endTime.addEventListener("change",()=>{
+            //     if(startTimeArrayWholeValue<=startTimeExpectedWholeValue){
+            //         newAudioSlider.extractedCurrentStartValue=newAudioSlider.startTime.value;
+            //         newAudioSlider.minRangeOfAudioSlider.style.left=(startTimeArrayWholeValue/(newAudioSlider.originalAudio.duration))*500+'px';
+            //         newAudioSlider.minRangeAudioLabel.style.left=(startTimeArrayWholeValue/(newAudioSlider.originalAudio.duration))*500+'px';
+            //         var percentage = (startTimeArrayWholeValue/(newAudioSlider.originalAudio.duration));
+            //         var currAudioDuration = Math.ceil(percentage * (newAudioSlider.originalAudio.duration));
+            //         newAudioSlider.minRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
+            //     }
+            //     else{
+            //         newAudioSlider.startTime.value=newAudioSlider.extractedCurrentStartValue;
+            //     }
+
+            //     })
+
+
+
+            newAudioSlider.startTimeSeconds.addEventListener("change",()=>{
                
-               var endTimeArray=newAudioSlider.endTime.value.split(":");
-               var endTimeExpectedUpto=newAudioSlider.endValueThatIsExpectedUpto.split(":");
+               var startTimeSeconds=parseInt(newAudioSlider.startTimeSeconds.value);
+               var startTimeMinutes=parseInt(newAudioSlider.startTimeMinutes.value);
 
-               var endTimeArrayWholeValue=(parseInt(endTimeArray[0])*3600)+(parseInt(endTimeArray[1])*60)+(parseInt(endTimeArray[2]));
-               var endTimeExpectedWholeValue=(parseInt(endTimeExpectedUpto[0])*3600)+(parseInt(endTimeExpectedUpto[1])*60)+(parseInt(endTimeExpectedUpto[2]));
+               var startTimeExpectedUptoSeconds=parseInt(newAudioSlider.startValueThatIsExpectedUptoSeconds);
+               var startTimeExpectedUptoMinutes=parseInt(newAudioSlider.startValueThatIsExpectedUptoMinutes);
+
+               var startTimeCurrentWholeValue=startTimeMinutes*60+startTimeSeconds;
+               var startTimeExpectedWholeValue=startTimeExpectedUptoMinutes*60+startTimeExpectedUptoSeconds;
 
 
-               if(endTimeArrayWholeValue>=endTimeExpectedWholeValue){
-                   newAudioSlider.extractedCurrentEndValue=newAudioSlider.endTime.value;
-                   newAudioSlider.maxRangeOfAudioSlider.style.left=(endTimeArrayWholeValue/(newAudioSlider.originalAudio.duration))*500+'px';
-                    newAudioSlider.maxRangeAudioLabel.style.left=(endTimeArrayWholeValue/(newAudioSlider.originalAudio.duration))*500+'px';
-                    var percentage = (endTimeArrayWholeValue/(newAudioSlider.originalAudio.duration));
-                    var currAudioDuration = Math.ceil(percentage * (newAudioSlider.originalAudio.duration));
-                    newAudioSlider.maxRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
+               if(startTimeCurrentWholeValue<=startTimeExpectedWholeValue && startTimeCurrentWholeValue>=0){
+
+                if(newAudioSlider.startTimeSeconds.value==60){
+                    newAudioSlider.startTimeSeconds.value=0;
+                    newAudioSlider.startTimeMinutes.value=parseInt(newAudioSlider.startTimeMinutes.value)+1;
+                }
+                if(newAudioSlider.startTimeSeconds.value==-1){
+                    newAudioSlider.startTimeSeconds.value=59;
+                    newAudioSlider.startTimeMinutes.value=parseInt(newAudioSlider.startTimeMinutes.value)-1;
+                }
+                   newAudioSlider.extractedCurrentStartValueSeconds=newAudioSlider.startTimeSeconds.value;
+                   newAudioSlider.extractedCurrentStartValueMinutes=newAudioSlider.startTimeMinutes.value;
+                   newAudioSlider.minRangeOfAudioSlider.style.left=(startTimeCurrentWholeValue/(newAudioSlider.originalAudio.duration))*500+'px';
+                   newAudioSlider.minRangeAudioLabel.style.left=(startTimeCurrentWholeValue/(newAudioSlider.originalAudio.duration))*500+'px';
+                   var percentage = (startTimeCurrentWholeValue/(newAudioSlider.originalAudio.duration));
+                   var currAudioDuration = Math.ceil(percentage * (newAudioSlider.originalAudio.duration));
+                   newAudioSlider.minRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
                }
                else{
-                   newAudioSlider.endTime.value=newAudioSlider.extractedCurrentEndValue;
+                   newAudioSlider.startTimeSeconds.value=newAudioSlider.extractedCurrentStartValueSeconds;
+                   newAudioSlider.startTimeMinutes.value=newAudioSlider.extractedCurrentStartValueMinutes;
                }
 
                })
+
+
+
+
+
+
+               newAudioSlider.startTimeMinutes.addEventListener("change",()=>{
+               
+               var startTimeSeconds=parseInt(newAudioSlider.startTimeSeconds.value);
+               var startTimeMinutes=parseInt(newAudioSlider.startTimeMinutes.value);
+
+               var startTimeExpectedUptoSeconds=parseInt(newAudioSlider.startValueThatIsExpectedUptoSeconds);
+               var startTimeExpectedUptoMinutes=parseInt(newAudioSlider.startValueThatIsExpectedUptoMinutes);
+
+               var startTimeCurrentWholeValue=startTimeMinutes*60+startTimeSeconds;
+               var startTimeExpectedWholeValue=startTimeExpectedUptoMinutes*60+startTimeExpectedUptoSeconds;
+
+
+               if(startTimeCurrentWholeValue<=startTimeExpectedWholeValue && startTimeCurrentWholeValue>=0){
+
+                   newAudioSlider.extractedCurrentStartValueSeconds=newAudioSlider.startTimeSeconds.value;
+                   newAudioSlider.extractedCurrentStartValueMinutes=newAudioSlider.startTimeMinutes.value;
+                   newAudioSlider.minRangeOfAudioSlider.style.left=(startTimeCurrentWholeValue/(newAudioSlider.originalAudio.duration))*500+'px';
+                   newAudioSlider.minRangeAudioLabel.style.left=(startTimeCurrentWholeValue/(newAudioSlider.originalAudio.duration))*500+'px';
+                   var percentage = (startTimeCurrentWholeValue/(newAudioSlider.originalAudio.duration));
+                   var currAudioDuration = Math.ceil(percentage * (newAudioSlider.originalAudio.duration));
+                   newAudioSlider.minRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
+               }
+               else{
+                   newAudioSlider.startTimeSeconds.value=newAudioSlider.extractedCurrentStartValueSeconds;
+                   newAudioSlider.startTimeMinutes.value=newAudioSlider.extractedCurrentStartValueMinutes;
+               }
+
+               })
+
+
+            //     newAudioSlider.endTime.addEventListener("change",()=>{
+               
+            //    var endTimeArray=newAudioSlider.endTime.value.split(":");
+            //    var endTimeExpectedUpto=newAudioSlider.endValueThatIsExpectedUpto.split(":");
+
+            //    var endTimeArrayWholeValue=(parseInt(endTimeArray[0])*3600)+(parseInt(endTimeArray[1])*60)+(parseInt(endTimeArray[2]));
+            //    var endTimeExpectedWholeValue=(parseInt(endTimeExpectedUpto[0])*3600)+(parseInt(endTimeExpectedUpto[1])*60)+(parseInt(endTimeExpectedUpto[2]));
+
+
+            //    if(endTimeArrayWholeValue>=endTimeExpectedWholeValue && endTimeArrayWholeValue<=newAudioSlider.originalAudio.duration){
+            //        newAudioSlider.extractedCurrentEndValue=newAudioSlider.endTime.value;
+            //        newAudioSlider.maxRangeOfAudioSlider.style.left=(endTimeArrayWholeValue/(newAudioSlider.originalAudio.duration))*500+'px';
+            //         newAudioSlider.maxRangeAudioLabel.style.left=(endTimeArrayWholeValue/(newAudioSlider.originalAudio.duration))*500+'px';
+            //         var percentage = (endTimeArrayWholeValue/(newAudioSlider.originalAudio.duration));
+            //         var currAudioDuration = Math.ceil(percentage * (newAudioSlider.originalAudio.duration));
+            //         newAudioSlider.maxRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
+            //    }
+            //    else{
+            //        newAudioSlider.endTime.value=newAudioSlider.extractedCurrentEndValue;
+            //    }
+
+            //    })
+
+
+            newAudioSlider.endTimeSeconds.addEventListener("change",()=>{
+               
+               var endTimeSeconds=parseInt(newAudioSlider.endTimeSeconds.value);
+               var endTimeMinutes=parseInt(newAudioSlider.endTimeMinutes.value);
+
+               var endTimeExpectedUptoSeconds=parseInt(newAudioSlider.endValueThatIsExpectedUptoSeconds);
+               var endTimeExpectedUptoMinutes=parseInt(newAudioSlider.endValueThatIsExpectedUptoMinutes);
+
+               var endTimeCurrentWholeValue=endTimeMinutes*60+endTimeSeconds;
+               var endTimeExpectedWholeValue=endTimeExpectedUptoMinutes*60+endTimeExpectedUptoSeconds;
+
+
+               if(endTimeCurrentWholeValue>=endTimeExpectedWholeValue && endTimeCurrentWholeValue<=newAudioSlider.originalAudio.duration){
+
+                if(newAudioSlider.endTimeSeconds.value==60){
+                    newAudioSlider.endTimeSeconds.value=0;
+                    newAudioSlider.endTimeMinutes.value=parseInt(newAudioSlider.endTimeMinutes.value)+1;
+                }
+                if(newAudioSlider.endTimeSeconds.value==-1){
+                    newAudioSlider.endTimeSeconds.value=59;
+                    newAudioSlider.endTimeMinutes.value=parseInt(newAudioSlider.endTimeMinutes.value)-1;
+                }
+                   newAudioSlider.extractedCurrentEndValueSeconds=newAudioSlider.endTimeSeconds.value;
+                   newAudioSlider.extractedCurrentEndValueMinutes=newAudioSlider.endTimeMinutes.value;
+                   newAudioSlider.maxRangeOfAudioSlider.style.left=(endTimeCurrentWholeValue/(newAudioSlider.originalAudio.duration))*500+'px';
+                   newAudioSlider.maxRangeAudioLabel.style.left=(endTimeCurrentWholeValue/(newAudioSlider.originalAudio.duration))*500+'px';
+                   var percentage = (endTimeCurrentWholeValue/(newAudioSlider.originalAudio.duration));
+                   var currAudioDuration = Math.ceil(percentage * (newAudioSlider.originalAudio.duration));
+                   newAudioSlider.maxRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
+               }
+               else{
+                   newAudioSlider.endTimeSeconds.value=newAudioSlider.extractedCurrentEndValueSeconds;
+                   newAudioSlider.endTimeMinutes.value=newAudioSlider.extractedCurrentEndValueMinutes;
+               }
+
+               })
+
+
+
+               newAudioSlider.endTimeMinutes.addEventListener("change",()=>{
+               
+               var endTimeSeconds=parseInt(newAudioSlider.endTimeSeconds.value);
+               var endTimeMinutes=parseInt(newAudioSlider.endTimeMinutes.value);
+
+               var endTimeExpectedUptoSeconds=parseInt(newAudioSlider.endValueThatIsExpectedUptoSeconds);
+               var endTimeExpectedUptoMinutes=parseInt(newAudioSlider.endValueThatIsExpectedUptoMinutes);
+
+               var endTimeCurrentWholeValue=endTimeMinutes*60+endTimeSeconds;
+               var endTimeExpectedWholeValue=endTimeExpectedUptoMinutes*60+endTimeExpectedUptoSeconds;
+
+
+               if(endTimeCurrentWholeValue>=endTimeExpectedWholeValue && endTimeCurrentWholeValue<=newAudioSlider.originalAudio.duration){
+
+                
+                   newAudioSlider.extractedCurrentEndValueSeconds=newAudioSlider.endTimeSeconds.value;
+                   newAudioSlider.extractedCurrentEndValueMinutes=newAudioSlider.endTimeMinutes.value;
+                   newAudioSlider.maxRangeOfAudioSlider.style.left=(endTimeCurrentWholeValue/(newAudioSlider.originalAudio.duration))*500+'px';
+                   newAudioSlider.maxRangeAudioLabel.style.left=(endTimeCurrentWholeValue/(newAudioSlider.originalAudio.duration))*500+'px';
+                   var percentage = (endTimeCurrentWholeValue/(newAudioSlider.originalAudio.duration));
+                   var currAudioDuration = Math.ceil(percentage * (newAudioSlider.originalAudio.duration));
+                   newAudioSlider.maxRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
+               }
+               else{
+                   newAudioSlider.endTimeSeconds.value=newAudioSlider.extractedCurrentEndValueSeconds;
+                   newAudioSlider.endTimeMinutes.value=newAudioSlider.extractedCurrentEndValueMinutes;
+               }
+
+               })
+            
 
 
 
@@ -506,7 +763,9 @@
                                                     var percentage = parseInt(getComputedStyle(newAudioSlider.minRangeAudioLabel).left) / 500;
                                                     var currAudioDuration = percentage * (newAudioSlider.originalAudio.duration);
                                                     newAudioSlider.minRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
-                                                    document.getElementById('starttime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
+                                                    // document.getElementById('starttime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
+                                                    document.getElementById('starttimeminutes').value=newAudioSlider.flooring(currAudioDuration / 60);
+                                                    document.getElementById('starttimeseconds').value=newAudioSlider.flooring(currAudioDuration % 60);
                                                     goLeft();
                                                 }
                                             }, 1);
@@ -522,7 +781,9 @@
                                                     var percentage = parseInt(getComputedStyle(newAudioSlider.maxRangeAudioLabel).left) / 500;
                                                     var currAudioDuration = percentage * (newAudioSlider.originalAudio.duration);
                                                     newAudioSlider.maxRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
-                                                    document.getElementById('endtime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
+                                                    // document.getElementById('endtime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
+                                                    document.getElementById('endtimeminutes').value=newAudioSlider.flooring(currAudioDuration / 60);
+                                                    document.getElementById('endtimeseconds').value=newAudioSlider.flooring(currAudioDuration % 60);
                                                     goRight();
                                                 }
                                             }, 1);
@@ -572,7 +833,9 @@
                             var percentage = parseInt(getComputedStyle(newAudioSlider.minRangeAudioLabel).left) / 500;
                             var currAudioDuration = percentage * (newAudioSlider.originalAudio.duration);
                             newAudioSlider.minRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
-                            document.getElementById('starttime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
+                            // document.getElementById('starttime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
+                            document.getElementById('starttimeminutes').value=newAudioSlider.flooring(currAudioDuration / 60);
+                            document.getElementById('starttimeseconds').value=newAudioSlider.flooring(currAudioDuration % 60);
                         }
 
 
@@ -585,7 +848,9 @@
                         var percentage = parseInt(getComputedStyle(newAudioSlider.minRangeAudioLabel).left) / 500;
                         var currAudioDuration = percentage * (newAudioSlider.originalAudio.duration);
                         newAudioSlider.minRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
-                        document.getElementById('starttime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
+                        // document.getElementById('starttime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
+                        document.getElementById('starttimeminutes').value=newAudioSlider.flooring(currAudioDuration / 60);
+                        document.getElementById('starttimeseconds').value=newAudioSlider.flooring(currAudioDuration % 60);
                     }
 
 
@@ -627,7 +892,9 @@
                     var percentage = parseInt(getComputedStyle(newAudioSlider.maxRangeAudioLabel).left) / 500;
                     var currAudioDuration = percentage * (newAudioSlider.originalAudio.duration);
                     newAudioSlider.maxRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
-                    document.getElementById('endtime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
+                    // document.getElementById('endtime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
+                    document.getElementById('endtimeminutes').value=newAudioSlider.flooring(currAudioDuration / 60);
+                    document.getElementById('endtimeseconds').value=newAudioSlider.flooring(currAudioDuration % 60);
                 }
 
                 else if (event.clientX > currentEventClientX  && event.clientX-50<499 ){
@@ -637,14 +904,18 @@
                 var percentage = parseInt(getComputedStyle(newAudioSlider.maxRangeAudioLabel).left) / 500;
                 var currAudioDuration = percentage * (newAudioSlider.originalAudio.duration);
                 newAudioSlider.maxRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
-                document.getElementById('endtime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
+                // document.getElementById('endtime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
+                document.getElementById('endtimeminutes').value=newAudioSlider.flooring(currAudioDuration / 60);
+                document.getElementById('endtimeseconds').value=newAudioSlider.flooring(currAudioDuration % 60);
                 }
 
                 else if( event.clientX-50>=500){
                     newAudioSlider.maxRangeOfAudioSlider.style.left = `${500}px`;
                 newAudioSlider.maxRangeAudioLabel.style.left = `${500}px`;
                 newAudioSlider.maxRangeAudioLabel.innerText = `${newAudioSlider.flooring(newAudioSlider.originalAudio.duration / 60)}:${newAudioSlider.flooring(newAudioSlider.originalAudio.duration % 60)}`;
-                document.getElementById('endtime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
+                // document.getElementById('endtime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
+                document.getElementById('endtimeminutes').value=newAudioSlider.flooring(currAudioDuration / 60);
+                document.getElementById('endtimeseconds').value=newAudioSlider.flooring(currAudioDuration % 60);
                 }
 
 
@@ -710,14 +981,18 @@
                                     var percentage = parseInt(getComputedStyle(newAudioSlider.minRangeAudioLabel).left) / 500;
                                     var currAudioDuration = percentage * (newAudioSlider.originalAudio.duration);
                                     newAudioSlider.minRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
-                                    document.getElementById('starttime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
+                                    // document.getElementById('starttime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
+                                    document.getElementById('starttimeminutes').value=newAudioSlider.flooring(currAudioDuration / 60);
+                                    document.getElementById('starttimeseconds').value=newAudioSlider.flooring(currAudioDuration % 60);
 
                                     newAudioSlider.maxRangeOfAudioSlider.style.left = `${currentMaxLeft - (currentEventClientX - event.clientX)}px`;
                                     newAudioSlider.maxRangeAudioLabel.style.left = `${currentMaxLeft - (currentEventClientX - event.clientX)}px`;
                                     var percentage = parseInt(getComputedStyle(newAudioSlider.maxRangeAudioLabel).left) / 500;
                                     var currAudioDuration = percentage * (newAudioSlider.originalAudio.duration);
                                     newAudioSlider.maxRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
-                                    document.getElementById('endtime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
+                                    // document.getElementById('endtime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
+                                    document.getElementById('endtimeminutes').value=newAudioSlider.flooring(currAudioDuration / 60);
+                                    document.getElementById('endtimeseconds').value=newAudioSlider.flooring(currAudioDuration % 60);
 
                                 }
 
@@ -730,14 +1005,19 @@
                                     var percentage = parseInt(getComputedStyle(newAudioSlider.minRangeAudioLabel).left) / 500;
                                     var currAudioDuration = percentage * (newAudioSlider.originalAudio.duration);
                                     newAudioSlider.minRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
-                                    document.getElementById('starttime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
+                                    // document.getElementById('starttime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`;
+                                    document.getElementById('starttimeminutes').value=newAudioSlider.flooring(currAudioDuration / 60);
+                                    document.getElementById('starttimeseconds').value=newAudioSlider.flooring(currAudioDuration % 60);
 
                                     newAudioSlider.maxRangeOfAudioSlider.style.left = `${currentMaxLeft + (-currentEventClientX + event.clientX)}px`;
                                     newAudioSlider.maxRangeAudioLabel.style.left = `${currentMaxLeft + (-currentEventClientX + event.clientX)}px`;
                                     var percentage = parseInt(getComputedStyle(newAudioSlider.maxRangeAudioLabel).left) / 500;
                                     var currAudioDuration = percentage * (newAudioSlider.originalAudio.duration);
                                     newAudioSlider.maxRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
-                                    document.getElementById('endtime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
+                                    // document.getElementById('endtime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`;
+                                    document.getElementById('endtimeminutes').value=newAudioSlider.flooring(currAudioDuration / 60);
+                                    document.getElementById('endtimeseconds').value=newAudioSlider.flooring(currAudioDuration % 60);
+                                    
 
                                 }
 
