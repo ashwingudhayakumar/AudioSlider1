@@ -800,20 +800,20 @@ newAudioSlider.input.addEventListener("change", function (event) {
                         audioElem.srcObject = streamNode.stream;
 
 
-                        audioElem.addEventListener ('loadeddata', function () {
+                       // audioElem.addEventListener ('loadeddata', function () {
         
-                            if (typeof (this.buffered) !== 'undefined' && this.buffered.length > 0) {
+                        //    if (typeof (this.buffered) !== 'undefined' && this.buffered.length > 0) {
                               
-                              audioElem.addEventListener ('progress', function () {
+                         //     audioElem.addEventListener ('progress', function () {
                                 
-                                var z = (this.buffered.end (0) / this.duration) * 100;
-                                progress.innerText = z;
+                         //       var z = (this.buffered.end (0) / this.duration) * 100;
+                         //       progress.innerText = z;
                                 
-                              });
+                          //    });
                               
-                            }
+                         //   }
                             
-                          });
+                         // });
                         
                     
                     
