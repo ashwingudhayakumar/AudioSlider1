@@ -4,33 +4,7 @@ function onClickOnAnyInput(event) {
 
         var idCheck = newAudioSlider.currentEventTargetElement.id;
 
-        // if(idCheck==="starttime"){
 
-        //     var endTimeArray=newAudioSlider.endTime.value.split(":");
-
-        //     var startTimeArray=newAudioSlider.startTime.value.split(":");
-
-        //     newAudioSlider.extractedCurrentStartValue=newAudioSlider.startTime.value;
-
-        //     newAudioSlider.extractedCurrentEndValue=newAudioSlider.endTime.value;
-
-        //     var diff=((parseInt(endTimeArray[0])*3600)+(parseInt(endTimeArray[1])*60)+(parseInt(endTimeArray[2])))-((parseInt(startTimeArray[0])*3600)+(parseInt(startTimeArray[1])*60)+(parseInt(startTimeArray[2])));
-
-        //     if(diff>1){
-
-        //         var expectedDiff=diff-1;
-
-        //         var valueToAddedIntoHour=parseInt(expectedDiff/3600);
-
-        //         var valueToAddedIntoMinute=parseInt(expectedDiff/60);
-
-        //         var valueToAddedIntoSeconds=parseInt(expectedDiff%60);
-
-        //         newAudioSlider.startValueThatIsExpectedUpto=`${(parseInt(startTimeArray[0])+valueToAddedIntoHour).toString().padStart(2,'0')}:${(parseInt(startTimeArray[1])+valueToAddedIntoMinute).toString().padStart(2,'0')}:${(parseInt(startTimeArray[2])+valueToAddedIntoSeconds).toString().padStart(2,'0')}`;
-
-        //         console.log(newAudioSlider.startValueThatIsExpectedUpto,newAudioSlider.extractedCurrentStartValue,newAudioSlider.extractedCurrentEndValue);
-
-        //     }
 
 
 
@@ -67,34 +41,6 @@ function onClickOnAnyInput(event) {
         }
 
 
-        // else if(idCheck==="endtime"){
-
-        //     var endTimeArray=newAudioSlider.endTime.value.split(":");
-
-        //     var startTimeArray=newAudioSlider.startTime.value.split(":");
-
-        //     newAudioSlider.extractedCurrentStartValue=newAudioSlider.startTime.value;
-
-        //     newAudioSlider.extractedCurrentEndValue=newAudioSlider.endTime.value;
-
-        //     var diff=((parseInt(endTimeArray[0])*3600)+(parseInt(endTimeArray[1])*60)+(parseInt(endTimeArray[2])))-((parseInt(startTimeArray[0])*3600)+(parseInt(startTimeArray[1])*60)+(parseInt(startTimeArray[2])));
-
-        //     if(diff>1){
-
-        //         var expectedDiff=diff-1;
-
-        //         var totalDuration=parseInt(startTimeArray[0])*3600+parseInt(startTimeArray[1]*60)+parseInt(startTimeArray[2]%60);
-
-        //         var expectedDuration=totalDuration+1;
-
-        //         newAudioSlider.endValueThatIsExpectedUpto=`${parseInt(expectedDuration/3600).toString().padStart(2,'0')}:${parseInt(expectedDuration/60).toString().padStart(2,'0')}:${parseInt(expectedDuration%60).toString().padStart(2,'0')}`;
-
-        //         console.log(newAudioSlider.endValueThatIsExpectedUpto,newAudioSlider.extractedCurrentStartValue,newAudioSlider.extractedCurrentEndValue);
-
-
-        //     }
-
-        // }
 
 
 
@@ -138,31 +84,31 @@ class AudioSlider {
         this.playPauseCount;
 
 
-        // this.startTime;
+
 
         this.startTimeSeconds;
         this.startTimeMinutes;
 
-        // this.endTime;
+
 
         this.endTimeSeconds;
         this.endTimeMinutes;
 
-        //this.extractedCurrentStartValue;
+
 
         this.extractedCurrentStartValueSeconds;
         this.extractedCurrentStartValueMinutes;
 
-        //this.extractedCurrentEndValue;
+
 
         this.extractedCurrentEndValueSeconds;
         this.extractedCurrentEndValueMinutes;
 
-        //this.startValueThatIsExpectedUpto;
+
         this.startValueThatIsExpectedUptoSeconds;
         this.startValueThatIsExpectedUptoMinutes;
 
-        //this.endValueThatIsExpectedUpto;
+
         this.endValueThatIsExpectedUptoSeconds;
         this.endValueThatIsExpectedUptoMinutes;
 
@@ -222,29 +168,26 @@ class AudioSlider {
         parent.appendChild(child);
     }
 
-    audioBaseSliderAttributeSet(element, backgroundColor, position, marginTop, height, width, left) {
-        element.style.backgroundColor = backgroundColor;
-        element.style.position = position;
-        element.style.marginTop = marginTop;
-        element.style.height = height;
-        element.style.width = width;
-        element.style.left = left;
+    audioBaseSliderAttributeSet(element, styleObject) {
+
+        for (const key in styleObject) {
+            element.style[key] = styleObject[key];
+        }
     }
 
-    audioRangeSliderAttributeSet(element, backgroundColor, position, paddingTop, paddingBottom, left, top) {
-        element.style.backgroundColor = backgroundColor;
-        element.style.position = position;
-        element.style.paddingTop = paddingTop;
-        element.style.paddingBottom = paddingBottom;
-        element.style.left = left;
-        element.style.top = top;
+    audioRangeSliderAttributeSet(element, styleObject) {
+
+
+        for (const key in styleObject) {
+            element.style[key] = styleObject[key];
+        }
 
     }
 
-    labelSet(element, position, top, left) {
-        element.style.position = position;
-        element.style.top = top;
-        element.style.left = left;
+    labelSet(element, styleObject) {
+        for (const key in styleObject) {
+            element.style[key] = styleObject[key];
+        }
     }
 
     insertAfter(newNode, referenceNode) {
@@ -298,6 +241,10 @@ class AudioSlider {
 
     }
 
+    removeElementById(removeArray) {
+        removeArray.forEach((item) => document.getElementById(item).remove());
+    }
+
 
 
 }
@@ -306,26 +253,13 @@ const newAudioSlider = new AudioSlider(1, false, false);
 newAudioSlider.creatingRequiredElements();
 newAudioSlider.input.addEventListener("change", function (event) {
     if (document.getElementById('originalAudio')) {
-        document.getElementById('originalAudio').remove();
-        document.getElementById('submit').remove();
-        document.getElementById('starttimeminutes').remove();
-        document.getElementById('starttimeseconds').remove();
-        document.getElementById('endtimeminutes').remove();
-        document.getElementById('endtimeseconds').remove();
+        newAudioSlider.removeElementById(['originalAudio', 'submit', 'starttimeminutes', 'starttimeseconds', 'endtimeminutes', 'endtimeseconds']);
         if (document.getElementById("trimmedAudiolabel")) {
-            document.getElementById('trimmedAudiolabel').remove();
-            document.getElementById('trimmedAudio').remove();
-            document.getElementById('playTrimmedAudio').remove();
-            document.getElementById('downloadTrimmedAudio').remove();
-            document.getElementById('speed').remove();
-            document.getElementById('speedlabel').remove();
-            document.getElementById('volume').remove();
-            document.getElementById('volumelabel').remove();
-
+            newAudioSlider.removeElementById(['trimmedAudiolabel', 'trimmedAudio', 'playTrimmedAudio', 'downloadTrimmedAudio', 'speed', 'speedlabel', 'volume', 'volumelabel']);
         }
 
     }
-    
+
     newAudioSlider.originalAudio = newAudioSlider.createElement('audio');
     newAudioSlider.setIdAttribute(newAudioSlider.originalAudio, "originalAudio");
     newAudioSlider.insertAfter(newAudioSlider.originalAudio, newAudioSlider.input);
@@ -333,45 +267,36 @@ newAudioSlider.input.addEventListener("change", function (event) {
     newAudioSlider.originalAudio.setAttribute("controls", true);
     newAudioSlider.originalAudio.style.display = "flex";
     newAudioSlider.originalAudio.load();
-    //newAudioSlider.originalAudio.defaultPlaybackRate=2;
-    
+
+
 
 
 
     newAudioSlider.originalAudio.onloadedmetadata = function () {
 
 
-        // newAudioSlider.startTime=document.createElement('input');
-        // newAudioSlider.endTime=document.createElement('input');
+
 
         newAudioSlider.startTimeSeconds = document.createElement('input');
         newAudioSlider.startTimeMinutes = document.createElement('input');
         newAudioSlider.endTimeSeconds = document.createElement('input');
         newAudioSlider.endTimeMinutes = document.createElement('input');
 
-        // newAudioSlider.startTime.setAttribute("type","time");
-        // newAudioSlider.endTime.setAttribute("type","time");
+
 
         newAudioSlider.startTimeSeconds.setAttribute("type", "number");
         newAudioSlider.startTimeMinutes.setAttribute("type", "number");
         newAudioSlider.endTimeMinutes.setAttribute("type", "number");
         newAudioSlider.endTimeSeconds.setAttribute("type", "number");
 
-        // newAudioSlider.startTime.setAttribute("step","1");
-        // newAudioSlider.endTime.setAttribute("step","1");
+
 
         newAudioSlider.startTimeSeconds.setAttribute("id", "starttimeseconds");
         newAudioSlider.startTimeMinutes.setAttribute("id", "starttimeminutes");
         newAudioSlider.endTimeSeconds.setAttribute("id", "endtimeseconds");
         newAudioSlider.endTimeMinutes.setAttribute("id", "endtimeminutes");
 
-        // newAudioSlider.startTime.setAttribute('min',"00:00:00");
-        // newAudioSlider.startTime.setAttribute('max',"23:59:58");
-        // newAudioSlider.endTime.setAttribute('min',"00:00:01");
-        // newAudioSlider.endTime.setAttribute('max',"23:59:59");
 
-        // newAudioSlider.startTime.value="00:00:00";
-        // newAudioSlider.endTime.value=`${Math.floor(newAudioSlider.originalAudio.duration/3600).toString().padStart(2, '0')}:${Math.floor(newAudioSlider.originalAudio.duration/60).toString().padStart(2, '0')}:${Math.floor(newAudioSlider.originalAudio.duration%60).toString().padStart(2, '0')}`;
 
         newAudioSlider.startTimeSeconds.value = "0";
         newAudioSlider.startTimeMinutes.value = "0";
@@ -380,40 +305,13 @@ newAudioSlider.input.addEventListener("change", function (event) {
 
 
 
-        // document.body.append(newAudioSlider.startTime);
-        // document.body.append(newAudioSlider.endTime);
+
 
         document.body.append(newAudioSlider.startTimeMinutes);
         document.body.append(newAudioSlider.startTimeSeconds);
         document.body.append(newAudioSlider.endTimeMinutes);
         document.body.append(newAudioSlider.endTimeSeconds);
 
-
-
-
-
-        // newAudioSlider.startTime.addEventListener("change",()=>{
-
-        //     var startTimeArray=newAudioSlider.startTime.value.split(":");
-        //     var startTimeExpectedUpto=newAudioSlider.startValueThatIsExpectedUpto.split(":");
-
-        //     var startTimeArrayWholeValue=(parseInt(startTimeArray[0])*3600)+(parseInt(startTimeArray[1])*60)+(parseInt(startTimeArray[2]));
-        //     var startTimeExpectedWholeValue=(parseInt(startTimeExpectedUpto[0])*3600)+(parseInt(startTimeExpectedUpto[1])*60)+(parseInt(startTimeExpectedUpto[2]));
-
-
-        //     if(startTimeArrayWholeValue<=startTimeExpectedWholeValue){
-        //         newAudioSlider.extractedCurrentStartValue=newAudioSlider.startTime.value;
-        //         newAudioSlider.minRangeOfAudioSlider.style.left=(startTimeArrayWholeValue/(newAudioSlider.originalAudio.duration))*500+'px';
-        //         newAudioSlider.minRangeAudioLabel.style.left=(startTimeArrayWholeValue/(newAudioSlider.originalAudio.duration))*500+'px';
-        //         var percentage = (startTimeArrayWholeValue/(newAudioSlider.originalAudio.duration));
-        //         var currAudioDuration = Math.ceil(percentage * (newAudioSlider.originalAudio.duration));
-        //         newAudioSlider.minRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
-        //     }
-        //     else{
-        //         newAudioSlider.startTime.value=newAudioSlider.extractedCurrentStartValue;
-        //     }
-
-        //     })
 
 
 
@@ -489,28 +387,7 @@ newAudioSlider.input.addEventListener("change", function (event) {
         })
 
 
-        //     newAudioSlider.endTime.addEventListener("change",()=>{
 
-        //    var endTimeArray=newAudioSlider.endTime.value.split(":");
-        //    var endTimeExpectedUpto=newAudioSlider.endValueThatIsExpectedUpto.split(":");
-
-        //    var endTimeArrayWholeValue=(parseInt(endTimeArray[0])*3600)+(parseInt(endTimeArray[1])*60)+(parseInt(endTimeArray[2]));
-        //    var endTimeExpectedWholeValue=(parseInt(endTimeExpectedUpto[0])*3600)+(parseInt(endTimeExpectedUpto[1])*60)+(parseInt(endTimeExpectedUpto[2]));
-
-
-        //    if(endTimeArrayWholeValue>=endTimeExpectedWholeValue && endTimeArrayWholeValue<=newAudioSlider.originalAudio.duration){
-        //        newAudioSlider.extractedCurrentEndValue=newAudioSlider.endTime.value;
-        //        newAudioSlider.maxRangeOfAudioSlider.style.left=(endTimeArrayWholeValue/(newAudioSlider.originalAudio.duration))*500+'px';
-        //         newAudioSlider.maxRangeAudioLabel.style.left=(endTimeArrayWholeValue/(newAudioSlider.originalAudio.duration))*500+'px';
-        //         var percentage = (endTimeArrayWholeValue/(newAudioSlider.originalAudio.duration));
-        //         var currAudioDuration = Math.ceil(percentage * (newAudioSlider.originalAudio.duration));
-        //         newAudioSlider.maxRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
-        //    }
-        //    else{
-        //        newAudioSlider.endTime.value=newAudioSlider.extractedCurrentEndValue;
-        //    }
-
-        //    })
 
 
         newAudioSlider.endTimeSeconds.addEventListener("change", () => {
@@ -586,17 +463,17 @@ newAudioSlider.input.addEventListener("change", function (event) {
 
 
 
-        newAudioSlider.audioBaseSliderAttributeSet(newAudioSlider.audioSliderBase, "rgb(51 51 51 / 63%)", 'absolute', '4rem', '50px', '500px', '50px');
-        newAudioSlider.audioRangeSliderAttributeSet(newAudioSlider.minRangeOfAudioSlider, 'red', 'absolute', '25px', '35px', '0px', '-21px');
-        newAudioSlider.audioRangeSliderAttributeSet(newAudioSlider.maxRangeOfAudioSlider, 'red', 'absolute', '25px', '35px', '500px', '-21px');
-        newAudioSlider.labelSet(newAudioSlider.minRangeAudioLabel, 'absolute', '-30px', '0px');
-        newAudioSlider.labelSet(newAudioSlider.maxRangeAudioLabel, 'absolute', '-30px', '500px');
+        newAudioSlider.audioBaseSliderAttributeSet(newAudioSlider.audioSliderBase, { 'backgroundColor': 'rgb(51 51 51 / 63%)', 'position': 'absolute', 'marginTop': '4rem', 'height': '50px', 'width': '500px', 'left': '50px' });
+        newAudioSlider.audioRangeSliderAttributeSet(newAudioSlider.minRangeOfAudioSlider, { backgroundColor: 'red', position: 'absolute', paddingTop: '25px', paddingBottom: '35px', left: '0px', top: '-21px' });
+        newAudioSlider.audioRangeSliderAttributeSet(newAudioSlider.maxRangeOfAudioSlider, { backgroundColor: 'red', position: 'absolute', paddingTop: '25px', paddingBottom: '35px', left: '500px', top: '-21px' });
+        newAudioSlider.labelSet(newAudioSlider.minRangeAudioLabel, { position: 'absolute', top: '-30px', left: '0px' });
+        newAudioSlider.labelSet(newAudioSlider.maxRangeAudioLabel, { position: 'absolute', top: '-30px', left: '500px' });
         document.body.append(newAudioSlider.audioSliderBase);
         newAudioSlider.minRangeAudioLabel.innerText = "0:00";
         newAudioSlider.maxRangeAudioLabel.innerText = `${newAudioSlider.flooring(originalAudio.duration / 60)}:${newAudioSlider.flooring(originalAudio.duration % 60)}`;
         newAudioSlider.minimumGap = 0.2 * (newAudioSlider.originalAudio.duration);
 
-        console.log("newAudioSlider.originalAudio.src",newAudioSlider.originalAudio.src);
+        console.log("newAudioSlider.originalAudio.src", newAudioSlider.originalAudio.src);
 
         fetch(newAudioSlider.originalAudio.src).then(function (response) {
             if (response.ok) {
@@ -622,58 +499,49 @@ newAudioSlider.input.addEventListener("change", function (event) {
 
         document.getElementById('submit').addEventListener('click', function (e) {
             if (document.getElementById('trimmedAudio')) {
-                document.getElementById('trimmedAudio').remove();
-                document.getElementById('trimmedAudiolabel').remove();
-                document.getElementById('playTrimmedAudio').remove();
-                document.getElementById('downloadTrimmedAudio').remove();
-                document.getElementById('speed').remove();
-                document.getElementById('speedlabel').remove();
-                document.getElementById('volume').remove();
-                document.getElementById('volumelabel').remove();
-
-
+                newAudioSlider.removeElementById(['trimmedAudiolabel', 'trimmedAudio', 'playTrimmedAudio', 'downloadTrimmedAudio', 'speed', 'speedlabel', 'volume', 'volumelabel']);
             }
 
-            newAudioSlider.playBackSpeedRateLabel=document.createElement('label');
-            newAudioSlider.playBackSpeedRateLabel.innerText="speed";
-            newAudioSlider.playBackSpeedRateLabel.setAttribute("id","speedlabel");
+            newAudioSlider.playBackSpeedRateLabel = document.createElement('label');
+            newAudioSlider.playBackSpeedRateLabel.innerText = "speed";
+            newAudioSlider.playBackSpeedRateLabel.setAttribute("id", "speedlabel");
             document.body.append(newAudioSlider.playBackSpeedRateLabel);
 
-            newAudioSlider.playBackSpeedRate=document.createElement('input');
-            newAudioSlider.playBackSpeedRate.setAttribute('type','range');
-            newAudioSlider.playBackSpeedRate.setAttribute('min','0.25');
-            newAudioSlider.playBackSpeedRate.setAttribute('max','2');
-            newAudioSlider.playBackSpeedRate.setAttribute('step','0.25');
-            newAudioSlider.playBackSpeedRate.setAttribute('id','speed');
+            newAudioSlider.playBackSpeedRate = document.createElement('input');
+            newAudioSlider.playBackSpeedRate.setAttribute('type', 'range');
+            newAudioSlider.playBackSpeedRate.setAttribute('min', '0.25');
+            newAudioSlider.playBackSpeedRate.setAttribute('max', '2');
+            newAudioSlider.playBackSpeedRate.setAttribute('step', '0.25');
+            newAudioSlider.playBackSpeedRate.setAttribute('id', 'speed');
             document.body.append(newAudioSlider.playBackSpeedRate);
-            newAudioSlider.playBackSpeedRate.value='1';
-            
+            newAudioSlider.playBackSpeedRate.value = '1';
 
 
-            newAudioSlider.playBackSpeedRate.addEventListener('change',function(event){
-                document.getElementById('trimmedAudio').playbackRate=newAudioSlider.playBackSpeedRate.value;
+
+            newAudioSlider.playBackSpeedRate.addEventListener('change', function (event) {
+                document.getElementById('trimmedAudio').playbackRate = newAudioSlider.playBackSpeedRate.value;
             })
 
 
 
-            newAudioSlider.musicVolumeLabel=document.createElement('label');
-            newAudioSlider.musicVolumeLabel.innerText="volume control";
-            newAudioSlider.musicVolumeLabel.setAttribute("id","volumelabel");
+            newAudioSlider.musicVolumeLabel = document.createElement('label');
+            newAudioSlider.musicVolumeLabel.innerText = "volume control";
+            newAudioSlider.musicVolumeLabel.setAttribute("id", "volumelabel");
             document.body.append(newAudioSlider.musicVolumeLabel);
 
-            newAudioSlider.musicVolume=document.createElement('input');
-            newAudioSlider.musicVolume.setAttribute('type','range');
-            newAudioSlider.musicVolume.setAttribute('min','0');
-            newAudioSlider.musicVolume.setAttribute('max','1');
-            newAudioSlider.musicVolume.setAttribute('step','0.1');
-            newAudioSlider.musicVolume.setAttribute('id','volume');
-            newAudioSlider.musicVolume.setAttribute('value','1');
+            newAudioSlider.musicVolume = document.createElement('input');
+            newAudioSlider.musicVolume.setAttribute('type', 'range');
+            newAudioSlider.musicVolume.setAttribute('min', '0');
+            newAudioSlider.musicVolume.setAttribute('max', '1');
+            newAudioSlider.musicVolume.setAttribute('step', '0.1');
+            newAudioSlider.musicVolume.setAttribute('id', 'volume');
+            newAudioSlider.musicVolume.setAttribute('value', '1');
             document.body.append(newAudioSlider.musicVolume);
-            
 
 
-            newAudioSlider.musicVolume.addEventListener('change',function(event){
-                document.getElementById('trimmedAudio').volume=newAudioSlider.musicVolume.value;
+
+            newAudioSlider.musicVolume.addEventListener('change', function (event) {
+                document.getElementById('trimmedAudio').volume = newAudioSlider.musicVolume.value;
             })
 
 
@@ -690,32 +558,15 @@ newAudioSlider.input.addEventListener("change", function (event) {
             }
             else {
                 var wholeDuration = newAudioSlider.originalAudio.duration;
-                // wholeDuration = Math.floor(wholeDuration);
+
 
                 var trimmedAudioBlob;
-                // if (startValue === 0) {
-                //     startValue = 1;
-                //     endValue += 1;
-                //     trimmedAudioBlob = newAudioSlider.Blob.slice(Math.floor((startValue * newAudioSlider.Blob.size) / wholeDuration), Math.floor((endValue * newAudioSlider.Blob.size) / wholeDuration), newAudioSlider.Blob.type);
-                // }
-                // else {
-                //     if (startValue === 1) {
-                //         startValue = 1;
-                //         endValue += 1;
-                //     }
-                //     if (startValue > 1) {
-                //         startValue -= 1;
-                //         endValue += 1;
-                //     }
 
-
-                //     trimmedAudioBlob = newAudioSlider.Blob.slice(Math.floor((startValue * newAudioSlider.Blob.size) / wholeDuration), Math.floor((endValue * newAudioSlider.Blob.size) / wholeDuration), newAudioSlider.Blob.type);
-                // }
                 console.log((startValue * newAudioSlider.Blob.size) / wholeDuration, startValue, newAudioSlider.Blob.size, wholeDuration);
 
                 const startTime = ((startValue * newAudioSlider.Blob.size) / wholeDuration);
                 const endTime = ((endValue * newAudioSlider.Blob.size) / wholeDuration) + ((1 * newAudioSlider.Blob.size) / wholeDuration);
-                
+
 
                 trimmedAudioBlob = newAudioSlider.Blob.slice(startTime, endTime, newAudioSlider.Blob.type);
 
@@ -727,6 +578,7 @@ newAudioSlider.input.addEventListener("change", function (event) {
                 trimmedAudio.style.position = "absolute";
                 trimmedAudio.style.top = "300px";
                 trimmedAudio.style.left = "180px";
+                trimmedAudio.loop = 'true';
                 document.body.append(trimmedAudio);
 
                 var trimmedAudioLabel = document.createElement('label');
@@ -772,93 +624,19 @@ newAudioSlider.input.addEventListener("change", function (event) {
                 document.body.append(downloadAudio);
 
                 downloadAudio.addEventListener('click', function () {
-                    console.log(document.getElementById('speed').value);
-                    
-                    var audioCtx=new AudioContext();
-                    
-                    let audio;
-                    
-                    
-                     async function playBack(){
-                    
-                       await fetch(document.getElementById('trimmedAudio').src)
-                    .then(data=>data.arrayBuffer())
-                    .then(arrayBuffer=>audioCtx.decodeAudioData(arrayBuffer))
-                    .then(decodedAudio=>audio=decodedAudio);
-                        const playSound=audioCtx.createBufferSource();
-                        playSound.buffer=audio;
-                        playSound.playbackRate.value=document.getElementById('speed').value;
-                        const gainNode=audioCtx.createGain();
-                        gainNode.gain.value=document.getElementById('volume').value;
-                        playSound.connect(gainNode);
-                        playSound.start(0);
-                        const streamNode = audioCtx.createMediaStreamDestination();
-                        playSound.connect(streamNode);
-                        const audioElem = new Audio();
-                        audioElem.controls = true;
-                        document.body.appendChild(audioElem);
-                        audioElem.srcObject = streamNode.stream;
+                    const a = Object.assign(document.createElement('a'), { href: document.getElementById('trimmedAudio').src, download: "newAudio.mp3" });
 
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
 
-                       // audioElem.addEventListener ('loadeddata', function () {
-        
-                        //    if (typeof (this.buffered) !== 'undefined' && this.buffered.length > 0) {
-                              
-                         //     audioElem.addEventListener ('progress', function () {
-                                
-                         //       var z = (this.buffered.end (0) / this.duration) * 100;
-                         //       progress.innerText = z;
-                                
-                          //    });
-                              
-                         //   }
-                            
-                         // });
-                        
-                    
-                    
-                        var anchor = document.createElement('a')
-                        document.body.appendChild(anchor)
-                        anchor.style = 'display: none';
-                      
-                          anchor.href = streamNode.stream;
-                          anchor.download = 'newaudio.mp3'
-                          anchor.click()
-                          anchor.remove();
-                     
-                    
-                        
-                    }
-                    
-                    playBack()
-                    // const a = Object.assign(document.createElement('a'), { href: document.getElementById('trimmedAudio').src, download: "newAudio.mp3" });
-                    
-                    // document.body.appendChild(a);
-                    // a.click();
-                    // a.remove();
                 })
-
             }
         }
         )
-
-
-
-
-
-
     }
-})
-
-
-
-
-
-
-
-
-
-
+}
+)
 
 newAudioSlider.audioSliderBase.addEventListener('click', function (event) {
 
@@ -890,7 +668,6 @@ function goLeft(dest) {
             var percentage = parseInt(getComputedStyle(newAudioSlider.minRangeAudioLabel).left) / 500;
             var currAudioDuration = percentage * (newAudioSlider.originalAudio.duration);
             newAudioSlider.minRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
-            // document.getElementById('starttime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
             document.getElementById('starttimeminutes').value = newAudioSlider.flooring(currAudioDuration / 60);
             document.getElementById('starttimeseconds').value = newAudioSlider.flooring(currAudioDuration % 60);
             goLeft(destination);
@@ -908,7 +685,6 @@ function goRight(dest) {
             var percentage = parseInt(getComputedStyle(newAudioSlider.maxRangeAudioLabel).left) / 500;
             var currAudioDuration = percentage * (newAudioSlider.originalAudio.duration);
             newAudioSlider.maxRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
-            // document.getElementById('endtime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
             document.getElementById('endtimeminutes').value = newAudioSlider.flooring(currAudioDuration / 60);
             document.getElementById('endtimeseconds').value = newAudioSlider.flooring(currAudioDuration % 60);
             goRight(destination);
@@ -944,7 +720,7 @@ newAudioSlider.minRangeOfAudioSlider.addEventListener('mousedown', function (e) 
 
 function mousemoveMin(event) {
 
-    var diff = Math.abs(newAudioSlider.currentEventClientX - event.clientX);
+
 
 
     if (event.clientX > newAudioSlider.currentEventClientX && newAudioSlider.currentMaxLeft - (event.clientX - 50) >= newAudioSlider.minimumGap) {
@@ -955,7 +731,6 @@ function mousemoveMin(event) {
         var percentage = parseInt(getComputedStyle(newAudioSlider.minRangeAudioLabel).left) / 500;
         var currAudioDuration = percentage * (newAudioSlider.originalAudio.duration);
         newAudioSlider.minRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
-        // document.getElementById('starttime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
         document.getElementById('starttimeminutes').value = newAudioSlider.flooring(currAudioDuration / 60);
         document.getElementById('starttimeseconds').value = newAudioSlider.flooring(currAudioDuration % 60);
     }
@@ -970,7 +745,6 @@ function mousemoveMin(event) {
         var percentage = parseInt(getComputedStyle(newAudioSlider.minRangeAudioLabel).left) / 500;
         var currAudioDuration = percentage * (newAudioSlider.originalAudio.duration);
         newAudioSlider.minRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
-        // document.getElementById('starttime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
         document.getElementById('starttimeminutes').value = newAudioSlider.flooring(currAudioDuration / 60);
         document.getElementById('starttimeseconds').value = newAudioSlider.flooring(currAudioDuration % 60);
     }
@@ -1012,8 +786,6 @@ newAudioSlider.maxRangeOfAudioSlider.addEventListener('mousedown', function (e) 
 
 function mousemoveMax(event) {
 
-    var diff = Math.abs(newAudioSlider.currentEventClientX - event.clientX);
-
 
     if (event.clientX < newAudioSlider.currentEventClientX && (event.clientX - 50 - newAudioSlider.currentMinLeft) >= newAudioSlider.minimumGap) {
 
@@ -1022,7 +794,6 @@ function mousemoveMax(event) {
         var percentage = parseInt(getComputedStyle(newAudioSlider.maxRangeAudioLabel).left) / 500;
         var currAudioDuration = percentage * (newAudioSlider.originalAudio.duration);
         newAudioSlider.maxRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
-        // document.getElementById('endtime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
         document.getElementById('endtimeminutes').value = newAudioSlider.flooring(currAudioDuration / 60);
         document.getElementById('endtimeseconds').value = newAudioSlider.flooring(currAudioDuration % 60);
     }
@@ -1034,7 +805,6 @@ function mousemoveMax(event) {
         var percentage = parseInt(getComputedStyle(newAudioSlider.maxRangeAudioLabel).left) / 500;
         var currAudioDuration = percentage * (newAudioSlider.originalAudio.duration);
         newAudioSlider.maxRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
-        // document.getElementById('endtime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
         document.getElementById('endtimeminutes').value = newAudioSlider.flooring(currAudioDuration / 60);
         document.getElementById('endtimeseconds').value = newAudioSlider.flooring(currAudioDuration % 60);
     }
@@ -1043,7 +813,6 @@ function mousemoveMax(event) {
         newAudioSlider.maxRangeOfAudioSlider.style.left = `${500}px`;
         newAudioSlider.maxRangeAudioLabel.style.left = `${500}px`;
         newAudioSlider.maxRangeAudioLabel.innerText = `${newAudioSlider.flooring(newAudioSlider.originalAudio.duration / 60)}:${newAudioSlider.flooring(newAudioSlider.originalAudio.duration % 60)}`;
-        // document.getElementById('endtime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
         document.getElementById('endtimeminutes').value = newAudioSlider.flooring(newAudioSlider.originalAudio.duration / 60);
         document.getElementById('endtimeseconds').value = newAudioSlider.flooring(newAudioSlider.originalAudio.duration % 60);
     }
@@ -1119,7 +888,6 @@ function mousemoveEvent(event) {
         var percentage = parseInt(getComputedStyle(newAudioSlider.minRangeAudioLabel).left) / 500;
         var currAudioDuration = percentage * (newAudioSlider.originalAudio.duration);
         newAudioSlider.minRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
-        // document.getElementById('starttime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
         document.getElementById('starttimeminutes').value = newAudioSlider.flooring(currAudioDuration / 60);
         document.getElementById('starttimeseconds').value = newAudioSlider.flooring(currAudioDuration % 60);
 
@@ -1128,7 +896,7 @@ function mousemoveEvent(event) {
         var percentage = parseInt(getComputedStyle(newAudioSlider.maxRangeAudioLabel).left) / 500;
         var currAudioDuration = percentage * (newAudioSlider.originalAudio.duration);
         newAudioSlider.maxRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
-        // document.getElementById('endtime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`
+
         document.getElementById('endtimeminutes').value = newAudioSlider.flooring(currAudioDuration / 60);
         document.getElementById('endtimeseconds').value = newAudioSlider.flooring(currAudioDuration % 60);
 
@@ -1143,7 +911,6 @@ function mousemoveEvent(event) {
         var percentage = parseInt(getComputedStyle(newAudioSlider.minRangeAudioLabel).left) / 500;
         var currAudioDuration = percentage * (newAudioSlider.originalAudio.duration);
         newAudioSlider.minRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
-        // document.getElementById('starttime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`;
         document.getElementById('starttimeminutes').value = newAudioSlider.flooring(currAudioDuration / 60);
         document.getElementById('starttimeseconds').value = newAudioSlider.flooring(currAudioDuration % 60);
 
@@ -1152,7 +919,6 @@ function mousemoveEvent(event) {
         var percentage = parseInt(getComputedStyle(newAudioSlider.maxRangeAudioLabel).left) / 500;
         var currAudioDuration = percentage * (newAudioSlider.originalAudio.duration);
         newAudioSlider.maxRangeAudioLabel.innerText = `${newAudioSlider.flooring(currAudioDuration / 60)}:${newAudioSlider.flooring(currAudioDuration % 60)}`;
-        // document.getElementById('endtime').value=`00:${newAudioSlider.flooring(currAudioDuration / 60).toString().padStart(2,'0')}:${newAudioSlider.flooring(currAudioDuration % 60).toString().padStart(2,'0')}`;
         document.getElementById('endtimeminutes').value = newAudioSlider.flooring(currAudioDuration / 60);
         document.getElementById('endtimeseconds').value = newAudioSlider.flooring(currAudioDuration % 60);
 
@@ -1173,166 +939,3 @@ window.addEventListener('mouseup', () => {
 
 }
 )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function audioBufferToWav (buffer, opt) {
-//     opt = opt || {}
-  
-//     var numChannels = buffer.numberOfChannels
-//     var sampleRate = buffer.sampleRate
-//     var format = opt.float32 ? 3 : 1
-//     var bitDepth = format === 3 ? 32 : 16
-  
-//     var result
-//     if (numChannels === 2) {
-//       result = interleave(buffer.getChannelData(0), buffer.getChannelData(1))
-//     } else {
-//       result = buffer.getChannelData(0)
-//     }
-  
-//     return encodeWAV(result, format, sampleRate, numChannels, bitDepth)
-//   }
-  
-//   function encodeWAV (samples, format, sampleRate, numChannels, bitDepth) {
-//     var bytesPerSample = bitDepth / 8
-//     var blockAlign = numChannels * bytesPerSample
-  
-//     var buffer = new ArrayBuffer(44 + samples.length * bytesPerSample)
-//     var view = new DataView(buffer)
-  
-//     /* RIFF identifier */
-//     writeString(view, 0, 'RIFF')
-//     /* RIFF chunk length */
-//     view.setUint32(4, 36 + samples.length * bytesPerSample, true)
-//     /* RIFF type */
-//     writeString(view, 8, 'WAVE')
-//     /* format chunk identifier */
-//     writeString(view, 12, 'fmt ')
-//     /* format chunk length */
-//     view.setUint32(16, 16, true)
-//     /* sample format (raw) */
-//     view.setUint16(20, format, true)
-//     /* channel count */
-//     view.setUint16(22, numChannels, true)
-//     /* sample rate */
-//     view.setUint32(24, sampleRate, true)
-//     /* byte rate (sample rate * block align) */
-//     view.setUint32(28, sampleRate * blockAlign, true)
-//     /* block align (channel count * bytes per sample) */
-//     view.setUint16(32, blockAlign, true)
-//     /* bits per sample */
-//     view.setUint16(34, bitDepth, true)
-//     /* data chunk identifier */
-//     writeString(view, 36, 'data')
-//     /* data chunk length */
-//     view.setUint32(40, samples.length * bytesPerSample, true)
-//     if (format === 1) { // Raw PCM
-//       floatTo16BitPCM(view, 44, samples)
-//     } else {
-//       writeFloat32(view, 44, samples)
-//     }
-  
-//     return buffer
-//   }
-  
-//   function interleave (inputL, inputR) {
-//     var length = inputL.length + inputR.length
-//     var result = new Float32Array(length)
-  
-//     var index = 0
-//     var inputIndex = 0
-  
-//     while (index < length) {
-//       result[index++] = inputL[inputIndex]
-//       result[index++] = inputR[inputIndex]
-//       inputIndex++
-//     }
-//     return result
-//   }
-  
-//   function writeFloat32 (output, offset, input) {
-//     for (var i = 0; i < input.length; i++, offset += 4) {
-//       output.setFloat32(offset, input[i], true)
-//     }
-//   }
-  
-//   function floatTo16BitPCM (output, offset, input) {
-//     for (var i = 0; i < input.length; i++, offset += 2) {
-//       var s = Math.max(-1, Math.min(1, input[i]))
-//       output.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true)
-//     }
-//   }
-  
-//   function writeString (view, offset, string) {
-//     for (var i = 0; i < string.length; i++) {
-//       view.setUint8(offset + i, string.charCodeAt(i))
-//     }
-//   }
-
-
-
-
-
-
-
-
-
-
-
-
-//   var    source = audioCtx.createBufferSource();
-                    //   function getData() {
-                          
-                    //       request = new XMLHttpRequest();
-                        
-                    //       request.open('GET', './BlindingLights.mp3', true);
-                        
-                    //       request.responseType = 'arraybuffer';
-                        
-                    //       request.onload = function() {
-                    //         var audioData = request.response;
-                        
-                    //         audioCtx.decodeAudioData(audioData, function(buffer) {
-                    //             myBuffer = buffer;
-                    //             source.buffer = myBuffer;
-                    //             source.playbackRate.value = document.getElementById('speed').value;
-                    //             source.connect(audioCtx.destination);
-                    //             source.loop = true;
-                    //           },
-                        
-                    //           function(e){"Error with decoding audio data" + e.err});
-                        
-                    //       }
-                        
-                    //       request.send();
-                    //     }
-                        
-                      
-                        
-                    //       getData();
