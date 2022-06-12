@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
 
-       
-        body {
+   body {
             margin: 0;
             height: 0px;
             background-color: rgba(24, 147, 163, 0.11);
@@ -20,7 +19,7 @@
 
         .hoverDiv {
             position: absolute;
-            height: 50px;
+            height: 180px;
             background-color: rgb(51 51 51 / 63%);
         }
 
@@ -28,51 +27,112 @@
         background-color: rgb(51 51 51 / 11%);
 		position: absolute;
 		margin-top: 4rem;
-		height: 50px;
-		width: 500px;
+		height: 180px;
+		width: 1800px;
 		left: 50px;
+        
         }
          #minimumRangeOfAudioSlider{
         background-color: red;
 		position: absolute;
 		padding-top: 25px;
-		padding-bottom: 35px;
-		left: 0px;
-		top: -21px
+		padding-bottom: 170px;
+		left: -9px;
+		top: -21px;
+        cursor:ew-resize;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
         }
         #maximumRangeOfAudioSlider{
         background-color: red;
 		position: absolute;
 		padding-top: 25px;
-		padding-bottom: 35px;
-		left: 500px;
-		top: -21px
+		padding-bottom: 170px;
+		left: 1800px;
+		top: -21px;
+        cursor:ew-resize;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0
+        }
+        #currentTimePElement{
+        background-color: rgb(0 163 255);
+		position: absolute;
+		padding-top: 25px;
+		padding-bottom: 170px;
+		left: 0px;
+		top: -21px;
         }
         #minimumRangeAudioLabel{
         position: absolute;
 		top: -30px;
-		left: 0px;
+		left: -9px;
         }
         #maximumRangeAudioLabel{
         position: absolute;
 		top: -30px;
-		left: 500px;
+		left: 1800px;
+        }
+        #currentTimeLabelElement{
+        position: absolute;
+        top: 192px;
+        left: 0px;
+        background: lightblue;
+        border-radius: 20px;
+
         } 
-       
+        .disable-select {
+        user-select: none;
+        }
 
+        #divForLoweringOpacityInMinArea{
+            width: 0px;
+            height: 182px;
+            opacity: 0.4;
+            background: #5b7790;
+            position: absolute;
+            left: 50px;
+            top: 159px;
+        }
 
+        #divForLoweringOpacityInMaxArea{
+            background: #5b7790;
+    width: 0px;
+    height: 180px;
+    opacity: 0.4;
+    position: absolute;
+    right: 70px;
+    top: 160px;
+    
+        }
+        select{
+            position: absolute;
+    top: 402px;
+    left: 1050px;
+        }
         
+        /* p#currentTimePElement:before 
+        {display: inline-block;content: var(--val);height: 20px;width: 60px;background: rgb(0 163 255);position: absolute;top: -15px;left: 50%;transform: translate(-50%, 0);border-radius: 25px;text-align: center;color: #fff;} */
+
+
     </style>
-     
-  
     <title>Document</title>
 </head>
 
-<body onclick="onClickOnAnyInput(event)">
-    <canvas  style="position: absolute; left:50px; top:160px; height:50px;width:500px; "></canvas>
-
-   <script src="script1SeperatedClassForRefactoring.js"></script>
+<body onclick="onClickOnAnyInput(event)" class="disable-select">
+    <canvas  style="position: absolute; left:50px; top:160px;  "></canvas>
+    <script src="script1SeperatedClassForRefactoring.js"></script>
     <script src="script1Refactoring.js"></script>
+    <select id="list">
+        <option value=".mp3">mp3</option>
+        <option value=".m4a">m4a</option>
+        <option value=".m4r">m4r</option>
+        <option value=".flac">flac</option>
+        <option value=".wav">wav</option>
+    </select>   
 </body>
 
 </html>
