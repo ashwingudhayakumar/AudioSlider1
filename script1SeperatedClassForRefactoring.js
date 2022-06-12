@@ -1,6 +1,11 @@
-class AudioSlider {
+class classForHoldingCommonVarAndFunc {
 	constructor() {
-		this.diff;
+		this.diffBtwDuration;
+
+		this.extractedCurrentStartValueSeconds;
+		this.extractedCurrentStartValueMinutes;
+		this.extractedCurrentEndValueSeconds;
+		this.extractedCurrentEndValueMinutes;
 
 		this.originalAudio;
 		this.minimumGap;
@@ -12,11 +17,7 @@ class AudioSlider {
 		this.endTimeSeconds;
 		this.endTimeMinutes;
 
-		this.extractedCurrentStartValueSeconds;
-		this.extractedCurrentStartValueMinutes;
-
-		this.extractedCurrentEndValueSeconds;
-		this.extractedCurrentEndValueMinutes;
+		
 
 		this.startValueThatIsExpectedUptoSeconds;
 		this.startValueThatIsExpectedUptoMinutes;
@@ -35,6 +36,16 @@ class AudioSlider {
 		this.playBackSpeedRateLabel;
 		this.musicVolume;
 		this.musicVolumeLabel;
+
+		this.currentTimePElement;
+		this.currentTimeLabelElement;
+
+
+		this.isPlaying;
+		this.isAnySliderMoving;
+
+		this.loweringOpacityInMin;
+		this.loweringOpacityInMax;
 
 	}
 
@@ -116,7 +127,7 @@ class AudioSlider {
 
 		this.maxRangeOfAudioSlider = this.createElement('p');
 		this.setIdAttribute(this.maxRangeOfAudioSlider, 'maximumRangeOfAudioSlider');
-		this.setProperty(this.maxRangeOfAudioSlider)
+		this.setProperty(this.maxRangeOfAudioSlider);
 
 		this.minRangeAudioLabel = this.createElement('label');
 		this.setIdAttribute(this.minRangeAudioLabel, "minimumRangeAudioLabel");
@@ -126,7 +137,25 @@ class AudioSlider {
 		this.setIdAttribute(this.maxRangeAudioLabel, "maximumRangeAudioLabel");
 		this.appendToParent(this.audioSliderBase, this.maxRangeAudioLabel);
 
+		
+
 	}
+
+	createElementAfterSubmitting(){
+
+
+		this.currentTimePElement=this.createElement('p');
+		this.setIdAttribute(this.currentTimePElement, 'currentTimePElement');
+		this.setProperty(this.currentTimePElement);
+		this.currentTimePElement.style.width='4px';
+
+		
+		this.currentTimeLabelElement = this.createElement('label');
+		this.setIdAttribute(this.currentTimeLabelElement, "currentTimeLabelElement");
+		this.appendToParent(this.audioSliderBase, this.currentTimeLabelElement);
+	}
+
+
 
 	removeElementById(removeArray) {
 		removeArray.forEach((item) => {
@@ -141,6 +170,6 @@ class AudioSlider {
 	}
 
 	reset(element,isResetLeft){
-		isResetLeft?element.style.left="0px":element.style.left="500px";
+		isResetLeft?element.style.left="-9px":element.style.left="1800px";
 	}
 }
