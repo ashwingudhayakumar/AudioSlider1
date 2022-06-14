@@ -816,3 +816,4 @@ window.addEventListener('mouseup', () => {
 	document.body.style.cursor = "auto";
 	newAudioCutter.isAnySliderMoving = false;
 })
+
