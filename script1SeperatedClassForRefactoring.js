@@ -145,7 +145,7 @@ class classForHoldingCommonVarAndFunc {
 
 		this.loweringOpacityInMax=document.createElement('div');
 		this.loweringOpacityInMax.setAttribute("id","divForLoweringOpacityInMaxArea");
-		document.body.append(this.loweringOpacityInMax);
+		this.appendToParent(this.audioSliderBase, this.loweringOpacityInMax);
 
 		this.trimmedAudio;
 
