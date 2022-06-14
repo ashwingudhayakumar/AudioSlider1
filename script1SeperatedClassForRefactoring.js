@@ -137,6 +137,18 @@ class classForHoldingCommonVarAndFunc {
 		this.setIdAttribute(this.maxRangeAudioLabel, "maximumRangeAudioLabel");
 		this.appendToParent(this.audioSliderBase, this.maxRangeAudioLabel);
 
+
+		this.loweringOpacityInMin=document.createElement('div');
+		this.loweringOpacityInMin.setAttribute("id","divForLoweringOpacityInMinArea");
+		document.body.append(this.loweringOpacityInMin);
+
+
+		this.loweringOpacityInMax=document.createElement('div');
+		this.loweringOpacityInMax.setAttribute("id","divForLoweringOpacityInMaxArea");
+		document.body.append(this.loweringOpacityInMax);
+
+		this.trimmedAudio;
+
 		
 
 	}
